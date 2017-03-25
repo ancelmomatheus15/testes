@@ -22,10 +22,6 @@ public class UC01CadastrarEmpresa {
 		empresa.setEndereco("rua taquari");
 		empresa.setTelefone("2222");
 	}
-
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
 	
 	public static Empresa empresa = new Empresa();
 	public static EmpresaDAO empresaDAO = new EmpresaDAO();
@@ -35,10 +31,49 @@ public class UC01CadastrarEmpresa {
 		assertEquals(1, empresaDAO.adiciona(empresa));
 	}
 	
+	@Test (expected = RuntimeException.class)
+	public void CT02UC01A2_cadastrar_empresa_cnpj_ja_cadastrado(){
+		empresaDAO.adiciona(empresa);
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void CT03UC01A3_cadastrar_empresa_cnpj_invalido(){
+		empresa.setCnpj("");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void CT04UC01A4_cadastrar_empresa_com_dados_invalidosNome(){
+		empresa.setNomeDaEmpresa("");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void CT04UC01A4_cadastrar_empresa_com_dados_invalidosFantasia(){
+		empresa.setNomeFantasia("");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void CT04UC01A4_cadastrar_empresa_com_dados_invalidosTelefone(){
+		empresa.setTelefone("");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void CT04UC01A4_cadastrar_empresa_com_dados_invalidosEndereco(){
+		empresa.setEndereco("");
+	}
+	
+	@Test (expected = RuntimeException.class)
+	public void excluiEmpresaInvalido() throws Exception{
+		empresaDAO.exclui("");
+	}
+	
 	@After
 	public void excluiEmpresa() throws Exception{
 		empresaDAO.exclui("89424232000180");
+	}
 
+	
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception {
 	}
 
 }
