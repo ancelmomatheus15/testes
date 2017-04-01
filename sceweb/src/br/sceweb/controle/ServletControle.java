@@ -32,7 +32,11 @@ public class ServletControle extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
-	 */
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */ 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -41,6 +45,11 @@ public class ServletControle extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -48,6 +57,12 @@ public class ServletControle extends HttpServlet {
 		executaComando(request, response);
 	}
 
+	/**
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	protected void executaComando(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String parametro = request.getParameter("acao");
@@ -71,7 +86,6 @@ public class ServletControle extends HttpServlet {
 
 			}
 		}
-		/*
 		if (parametro.equals("ConsultarEmpresa")) {
 			url = "/visao/FormEmpresa.jsp";
 			Empresa empresa = new Empresa();
@@ -100,10 +114,19 @@ public class ServletControle extends HttpServlet {
 			}
 			request.getRequestDispatcher(url).forward(request, response);
 			
-		}*/
+		}
 
 	}
 
+	/**
+	 * 
+	 * @param cnpj
+	 * @param nomeDaEmpresa
+	 * @param nomeFantasia
+	 * @param endereco
+	 * @param telefone
+	 * @return String
+	 */
 	public String cadastrarEmpresa(String cnpj, String nomeDaEmpresa, String nomeFantasia, String endereco,
 			String telefone) {
 		String msg = "";
@@ -124,13 +147,23 @@ public class ServletControle extends HttpServlet {
 
 		return msg;
 	}
-
-/*	public Empresa consulta(String cnpj) {
+	
+	/**
+	 * 
+	 * @param cnpj
+	 * @return object
+	 */
+	public Empresa consulta(String cnpj) {
 		logger.info("consulta empresa 2 = " + cnpj);
 		EmpresaDAO empresaDAO = new EmpresaDAO();
 		return empresaDAO.consultaEmpresa(cnpj);
 	}
-*/
+	
+	/**
+	 * 
+	 * @param cnpj
+	 * @return String
+	 */
 	public String excluirEmpresa(String cnpj) {
 		String msg = "";
 		EmpresaDAO empresaDAO = new EmpresaDAO();
